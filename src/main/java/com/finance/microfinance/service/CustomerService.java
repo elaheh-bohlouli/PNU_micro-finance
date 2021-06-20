@@ -2,6 +2,7 @@ package com.finance.microfinance.service;
 
 import com.finance.microfinance.exceptions.ItemNotFoundException;
 import com.finance.microfinance.model.Customer;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 

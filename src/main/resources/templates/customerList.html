@@ -1,0 +1,88 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>customerListPage</title>
+    <!--<link rel="stylesheet" th:href="@{/bootstrap.min.css}">
+    <script th:src="@{/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="../static/bootstrap.min.css"  media="all">
+    <script src="../static/bootstrap.min.js"></script>
+    -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.rtl.min.css"  integrity="sha384-LPvXVVAlyPoBSGkX8UddpctDks+1P4HG8MhT7/YwqHtJ40bstjzCqjj+VVVDhsCo" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</head>
+<body class="bodyHome img-thumbnail container bg-light">
+<div align="center">
+    <h2 class="bg-light text-10 font-14 text-primary border rounded font-weight-bold m-2 p-2 w-50">صفحه مشتریان</h2>
+    <br>
+    <br>
+    <div class="container">
+        <div class="sticky-top bg-primary p-3 rounded">
+            <fieldset class="fieldsetSty">
+                <legend aria-readonly="true" class="legendSty">جستجو</legend>
+                <form th:action="@{/customer/customerList}" method="get">
+                    کد عضویت: <input type="text" name="code" id="code" size="50" th:value="${code}" placeholder="کد عضویت"/>
+                    نام: <input type="text" name="name" id="name" size="50" th:value="${name}" placeholder="نام"/>
+                    نام خانوادگی: <input type="text" name="lastName" id="lastName" size="50" th:value="${lastName}" placeholder="نام خانوادگی"/>
+                    کد ملی: <input type="text" name="internationalCode" id="internationalCode" size="50" th:value="${internationalCode}" placeholder="کد ملی"/>
+                    <br>
+                    <button class="btn btn-outline-primary active" type="submit">
+                        جستجو
+                    </button>
+                    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()"/>
+                </form>
+            </fieldset>
+
+            <table class="table table-striped table-responsive-md">
+                <thead>
+                <tr class="header">
+                    <th>شماره عضویت</th>
+                    <th>نام</th>
+                    <th>نام خانوادگی</th>
+                    <th>کد ملی</th>
+                    <th>تعداد سهم</th>
+                    <th>تاریخ عضویت</th>
+                    <th>تاریخ آخرین ویرایش</th>
+                    <th>وضعیت مشتری</th>
+                    <th>,ویرایش مشتری</th>
+                    <th>حذف مشتری</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer : ${listCustomers}">
+                    <td th:text="${customer.code}"></td>
+                    <td th:text="${customer.name}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.internationalCode}"></td>
+                    <td th:text="${customer.portionNumber}"></td>
+                    <td th:text="${customer.createDate}"></td>
+                    <td th:text="${customer.lastModifiedDataTime}"></td>
+                    <td th:text="${customer.active}"></td>
+                    <td><a th:href="@{/customer/editCustomer/{id}(id=${customer.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                    <td><a th:href="@{/customer/deleteCustomer/{id}(id=${customer.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/">برو به صفحه اصلی...</a>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(document).ready(new function () {
+        $("#buttonSearch").on("click", function (e) {
+            keyword = $("#fieldKeyword").val();
+            alert("Keyword:" + keyword);
+        });
+    });
+
+    function clearSearch() {
+        window.location = "[[@{/}]]";
+    }
+</script>
+</html>

@@ -29,6 +29,14 @@ public class Entities implements Serializable {
         this.id = id;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public Date getLastModifiedDataTime() {
         return lastModifiedDataTime;
     }
