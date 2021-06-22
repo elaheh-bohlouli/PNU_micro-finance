@@ -21,6 +21,10 @@
     <br>
     <br>
     <div class="container">
+        <div>
+            <a class="border font-weight-bold text-center item bottom-nav m-1 p-1 rounded active"
+               href="/customer/newCustomer">افزودن مشتری جدید</a>
+        </div>
         <div class="sticky-top bg-primary p-3 rounded">
             <fieldset class="fieldsetSty">
                 <legend aria-readonly="true" class="legendSty">جستجو</legend>
@@ -30,9 +34,7 @@
                     نام خانوادگی: <input type="text" name="lastName" id="lastName" size="50" th:value="${lastName}" placeholder="نام خانوادگی"/>
                     کد ملی: <input type="text" name="internationalCode" id="internationalCode" size="50" th:value="${internationalCode}" placeholder="کد ملی"/>
                     <br>
-                    <button class="btn btn-outline-primary active" type="submit">
-                        جستجو
-                    </button>
+                    <button onclick="search()" type="submit">جستجو</button>
                     <input type="button" value="Clear" id="btnClear" onclick="clearSearch()"/>
                 </form>
             </fieldset>
@@ -68,21 +70,24 @@
                 </tbody>
             </table>
 
-            <a href="/">برو به صفحه اصلی...</a>
+            <a href="/index">برو به صفحه اصلی...</a>
         </div>
     </div>
 </div>
 </body>
 <script type="text/javascript">
     $(document).ready(new function () {
-        $("#buttonSearch").on("click", function (e) {
-            keyword = $("#fieldKeyword").val();
-            alert("Keyword:" + keyword);
+        $("#search").on("click", function (e) {
+            code = $("#code").val();
+            name = $("#name").val();
+            lastName = $("#lastName").val();
+            internationalCode = $("#internationalCode").val();
+            alert("Keyword:");
         });
     });
 
     function clearSearch() {
-        window.location = "[[@{/}]]";
+        window.location = "[[@{/customer/customerList}]]";
     }
 </script>
 </html>

@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name = "t_Customer")
 public class Customer extends Entities {
 

@@ -4,6 +4,9 @@ import com.finance.microfinance.exceptions.ItemNotFoundException;
 import com.finance.microfinance.model.Customer;
 import com.finance.microfinance.repository.CustomerRepository;
 import com.finance.microfinance.service.CustomerService;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +21,33 @@ public class CustomerServiceClass implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> search(String code, String name, String lastName, String internationalCode) throws ItemNotFoundException {
-        if (Objects.nonNull(code)) {
-            return customerRepository.search(code, name, lastName, internationalCode);
+    public List<Customer> searchByCriteria(String code, String name, String lastName, String internationalCode) throws ItemNotFoundException {
+        Session session = new Configuration().configure().buildSessionFactory().openSession();
+
+        try {
+            if (Objects.nonNull(code) || Objects.nonNull(name) || Objects.nonNull(lastName) || Objects.nonNull(internationalCode)) {
+                String queryString = "SELECT c FROM Customer c WHERE 1=1";
+                if (Objects.nonNull(code)) {
+                    queryString += "and c.code = code";
+                } else if (Objects.nonNull(name)) {
+                    queryString += "and c.name = name";
+                } else if (Objects.nonNull(lastName)) {
+                    queryString += "and c.lastName = lastName";
+                } else if (Objects.nonNull(internationalCode)) {
+                    queryString += "and c.name = customerCriteria.internationalCode";
+                }
+                Query query = session.createQuery(queryString);
+                query.setParameter("code", "code");
+                query.setParameter("name", "name");
+                query.setParameter("lastName", "lastName");
+                query.setParameter("internationalCode", "internationalCode");
+                List<Customer> customerList = query.list();
+                return customerList;
+            }
+        } catch (Exception exception) {
+            System.out.println("Exception " + exception);
+        } finally {
+            session.close();
         }
         return customerRepository.findAll();
     }
