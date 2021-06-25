@@ -6,14 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    /*List<Customer> search(String code, String name, String lastName, String internationalCode);*/
-
-/*
-    List<Customer> search(@Param("code") String code, @Param("name") String name, @Param("lastName") String lastName, @Param("internationalCode") String internationalCode, Pageable pageable);
-*/
+    @Query("SELECT c FROM Customer c WHERE c.lastName LIKE %?1%")
+    List<Customer> search(String lastName);
 
     @Query(value = "select c from Customer c where c.id = ?1")
     Customer findCustomerById(@Param("theId") Integer theId);

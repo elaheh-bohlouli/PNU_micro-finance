@@ -2,9 +2,10 @@ package com.finance.microfinance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class MicroFinanceApplication {
+public class MicroFinanceApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(MicroFinanceApplication.class, args);

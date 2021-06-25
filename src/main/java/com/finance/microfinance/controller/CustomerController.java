@@ -39,16 +39,10 @@ public class CustomerController {
     @RequestMapping(value = "/customerList", method = RequestMethod.GET)
     public ModelAndView findCustomersByCriteria(
             ModelAndView mv,
-            @Param("code") String code,
-            @Param("name") String name,
-            @Param("lastName") String lastName,
-            @Param("internationalCode") String internationalCode) throws ItemNotFoundException {
-        List<Customer> listCustomers = customerService.searchByCriteria(code, name, lastName, internationalCode);
+            @Param("lastName") String lastName) throws ItemNotFoundException {
+        List<Customer> listCustomers = customerService.searchByCriteria(lastName);
         mv.addObject("listCustomers", listCustomers);
-        mv.addObject("code", code);
-        mv.addObject("name", name);
         mv.addObject("lastName", lastName);
-        mv.addObject("internationalCode", internationalCode);
         mv.setViewName("customerList");
         return mv;
     }

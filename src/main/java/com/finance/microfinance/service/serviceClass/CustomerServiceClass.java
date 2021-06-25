@@ -21,9 +21,14 @@ public class CustomerServiceClass implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> searchByCriteria(String code, String name, String lastName, String internationalCode) throws ItemNotFoundException {
-        Session session = new Configuration().configure().buildSessionFactory().openSession();
+    public List<Customer> searchByCriteria(String lastName) throws ItemNotFoundException {
+        if (lastName != null) {
+                return customerRepository.search(lastName);
+            }
+            return customerRepository.findAll();
+        }
 
+    /*    Session session = new Configuration().configure().buildSessionFactory().openSession();
         try {
             if (Objects.nonNull(code) || Objects.nonNull(name) || Objects.nonNull(lastName) || Objects.nonNull(internationalCode)) {
                 String queryString = "SELECT c FROM Customer c WHERE 1=1";
@@ -48,9 +53,7 @@ public class CustomerServiceClass implements CustomerService {
             System.out.println("Exception " + exception);
         } finally {
             session.close();
-        }
-        return customerRepository.findAll();
-    }
+    */
 
     @Override
     public void save(Customer customer) {
