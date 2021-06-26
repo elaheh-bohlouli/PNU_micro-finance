@@ -9,10 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +57,7 @@ public class CustomerController {
         return new ModelAndView("redirect:/customerList");
     }
 
-    @RequestMapping(value = "/editCustomer", method = {RequestMethod.GET})
+/*    @RequestMapping(value = "/editCustomer", method = {RequestMethod.GET})
     public ModelAndView editCustomer(HttpServletRequest request) throws ItemNotFoundException {
         int customerId = Integer.parseInt(request.getParameter("id"));
         Customer customer = customerService.findCustomerById(customerId);
@@ -68,5 +65,14 @@ public class CustomerController {
         ModelAndView model = new ModelAndView("customer/CustomerForm");
         model.addObject("customer", customer);
         return model;
+    }*/
+
+    @RequestMapping("/editCustomer/{id}")
+    public ModelAndView editCustomer(@PathVariable(name = "id") int id) throws ItemNotFoundException {
+        ModelAndView mav = new ModelAndView("editCustmer");
+        Customer customer = customerService.findCustomerById(id);
+        mav.addObject("customer", customer);
+        return mav;
     }
+
 }
