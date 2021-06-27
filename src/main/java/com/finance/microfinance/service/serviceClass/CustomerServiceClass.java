@@ -4,9 +4,6 @@ import com.finance.microfinance.exceptions.ItemNotFoundException;
 import com.finance.microfinance.model.Customer;
 import com.finance.microfinance.repository.CustomerRepository;
 import com.finance.microfinance.service.CustomerService;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +20,10 @@ public class CustomerServiceClass implements CustomerService {
     @Override
     public List<Customer> searchByCriteria(String lastName) throws ItemNotFoundException {
         if (lastName != null) {
-                return customerRepository.search(lastName);
-            }
-            return customerRepository.findAll();
+            return customerRepository.search(lastName);
         }
+        return customerRepository.findAll();
+    }
 
     /*    Session session = new Configuration().configure().buildSessionFactory().openSession();
         try {
@@ -79,6 +76,10 @@ public class CustomerServiceClass implements CustomerService {
             return customerRepository.findCustomerById(theId);
         }
         throw new ItemNotFoundException();
+    }
+
+    public Customer get(int id) {
+        return customerRepository.findById(id).get();
     }
 
     @Override
