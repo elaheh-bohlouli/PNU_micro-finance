@@ -50,6 +50,15 @@ public class CustomerController {
         return new ModelAndView("redirect:customerList");
     }
 
+
+    @RequestMapping("/editCustomer/{id}")
+    public ModelAndView editCustomer(@PathVariable(name = "id") int id) throws ItemNotFoundException {
+        ModelAndView mav = new ModelAndView("editCustomer");
+        Customer customer = customerService.get(id);
+        mav.addObject("customer", customer);
+        return mav;
+    }
+
     @RequestMapping(value = "/deleteCustomer", method = {RequestMethod.GET})
     public ModelAndView deleteCustomer(HttpServletRequest request) {
         int customerId = Integer.parseInt(request.getParameter("id"));
@@ -66,13 +75,4 @@ public class CustomerController {
         model.addObject("customer", customer);
         return model;
     }*/
-
-    @RequestMapping("/editCustomer/{id}")
-    public ModelAndView editCustomer(@PathVariable(name = "id") int id) throws ItemNotFoundException {
-        ModelAndView mav = new ModelAndView("editCustmer");
-        Customer customer = customerService.findCustomerById(id);
-        mav.addObject("customer", customer);
-        return mav;
-    }
-
 }

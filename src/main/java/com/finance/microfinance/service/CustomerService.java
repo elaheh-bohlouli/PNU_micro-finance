@@ -15,7 +15,7 @@ public interface CustomerService {
 
     void updateCustomer(Customer customer);
 
-    Customer findCustomerById(int theId) throws ItemNotFoundException;
+    Customer get(int id);
 
     void delete(int theId);
 }

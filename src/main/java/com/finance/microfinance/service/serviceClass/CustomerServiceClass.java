@@ -71,13 +71,6 @@ public class CustomerServiceClass implements CustomerService {
     }
 
     @Override
-    public Customer findCustomerById(int theId) throws ItemNotFoundException {
-        if (Objects.nonNull(customerRepository.findCustomerById(theId))) {
-            return customerRepository.findCustomerById(theId);
-        }
-        throw new ItemNotFoundException();
-    }
-
     public Customer get(int id) {
         return customerRepository.findById(id).get();
     }
