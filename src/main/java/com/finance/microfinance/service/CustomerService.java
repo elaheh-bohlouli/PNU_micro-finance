@@ -1,5 +1,6 @@
 package com.finance.microfinance.service;
 
+import com.finance.microfinance.exceptions.InternationalCodeValidationException;
 import com.finance.microfinance.exceptions.ItemNotFoundException;
 import com.finance.microfinance.model.Customer;
 
@@ -11,7 +12,7 @@ public interface CustomerService {
 
     void save(Customer customer);
 
-    void createNewCustomer(Customer customer);
+    void createNewCustomer(Customer customer) throws InternationalCodeValidationException;
 
     void updateCustomer(Customer customer);
 
