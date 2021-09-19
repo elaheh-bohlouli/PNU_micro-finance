@@ -1,15 +1,15 @@
 package com.finance.microfinance.auth;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.context.annotation.Primary;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "t_User")
 public class User {
     @Id
-    @Column(name = "c_USER_Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "c_USER_Id", nullable = false, unique = true)
     private long Id;
 
     @Column(name = "c_USERNAME", unique = true, nullable = false)
