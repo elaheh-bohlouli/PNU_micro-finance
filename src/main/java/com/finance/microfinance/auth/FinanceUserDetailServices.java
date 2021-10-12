@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserDetailServices implements UserDetailsService {
+public class FinanceUserDetailServices implements UserDetailsService {
     private final UserRepository userRepository;
     private final AuthGroupRepository authGroupRepository;
 
-    public UserDetailServices(UserRepository userRepository, AuthGroupRepository authGroupRepository) {
+    public FinanceUserDetailServices(UserRepository userRepository, AuthGroupRepository authGroupRepository) {
         super();
         this.userRepository = userRepository;
         this.authGroupRepository = authGroupRepository;

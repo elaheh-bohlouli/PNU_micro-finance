@@ -1,6 +1,6 @@
 package com.finance.microfinance;
 
-import com.finance.microfinance.auth.UserDetailServices;
+import com.finance.microfinance.auth.FinanceUserDetailServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailServices userDetailServices;
+    private FinanceUserDetailServices userDetailServices;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -35,7 +35,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     public GrantedAuthoritiesMapper authoritiesMapper() {
         SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
         authorityMapper.setConvertToLowerCase(true);
-        authorityMapper.setDefaultAuthority("User");
+        authorityMapper.setDefaultAuthority("t_USER");
         return authorityMapper;
     }
 
@@ -49,8 +49,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/").authenticated()
+                .antMatchers("/", "/index", "/css/*", "/js/*").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
     }

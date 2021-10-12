@@ -10,10 +10,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "c_USER_Id", nullable = false, unique = true)
-    private long Id;
+    private Long Id;
 
     @Column(name = "c_USERNAME", unique = true, nullable = false)
-    private String UserName;
+    private String userName;
 
     @Column(name = "c_PASSWORD", unique = true)
     private String Password;
@@ -27,11 +27,11 @@ public class User {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public void setPassword(String password) {

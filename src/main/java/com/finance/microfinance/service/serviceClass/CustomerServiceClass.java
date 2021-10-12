@@ -9,6 +9,7 @@ import com.finance.microfinance.service.internationalId.DigitNumberCalculation;
 import com.finance.microfinance.service.internationalId.RepetitiveNumberCalculation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ import java.util.Objects;
 public class CustomerServiceClass implements CustomerService {
 
     @Autowired
+    @Qualifier("customerRepository")
     private CustomerRepository customerRepository;
     public DigitNumberCalculation digitNumberCalculation;
 
