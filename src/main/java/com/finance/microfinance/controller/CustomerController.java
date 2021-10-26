@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +61,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/deleteCustomer", method = {RequestMethod.GET})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView deleteCustomer(HttpServletRequest request) {
         int customerId = Integer.parseInt(request.getParameter("id"));
         customerService.delete(customerId);
