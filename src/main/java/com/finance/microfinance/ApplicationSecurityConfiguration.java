@@ -2,6 +2,7 @@ package com.finance.microfinance;
 
 import com.finance.microfinance.auth.FinanceUserDetailServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,7 +19,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableZuulProxy
 public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public SimpleFilter simpleFilter() {
+        return new SimpleFilter();
+    }
 
     @Autowired
     private FinanceUserDetailServices userDetailServices;
@@ -50,7 +57,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/css/*", "/js/*").permitAll()
+                .antMatchers("/", "/index", "/css/*", "/js/*", "/customer", "/customer/customerList").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
