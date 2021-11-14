@@ -12,7 +12,7 @@ public interface CustomerService {
 
     void save(Customer customer);
 
-    void createNewCustomer(Customer customer) throws InternationalCodeValidationException;
+    Customer createNewCustomer(Customer customer) throws InternationalCodeValidationException;
 
     void updateCustomer(Customer customer);
 

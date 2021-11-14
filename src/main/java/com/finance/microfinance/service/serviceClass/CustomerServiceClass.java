@@ -83,11 +83,12 @@ public class CustomerServiceClass implements CustomerService {
     }
 
     @Override
-    public void createNewCustomer(Customer customer) throws InternationalCodeValidationException {
+    public Customer createNewCustomer(Customer customer) throws InternationalCodeValidationException {
         if (Boolean.TRUE.equals(validateNumber(customer.getCode())))
             customer.setActive(true);
         customer.setLastModifiedDataTime(new Date());
         save(customer);
+        return customer;
     }
 
     @Override
